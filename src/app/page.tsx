@@ -6,6 +6,7 @@ import { Board } from "./components/Board"
 import { SolveButtons } from "./components/SolveButtons"
 import { generateHouses } from "./lib/generateHouses"
 import { eliminateCandidates } from "./lib/eliminateCandidates"
+import { AppProvider } from "./ui/context/AppProvider"
 
 export default function Home() {
   // prettier-ignore
@@ -32,8 +33,10 @@ export default function Home() {
     <div className="h-screen">
       <Container>
         <div className="p-4">
-          <Board board={enhancedBoard} />
-          <SolveButtons />
+          <AppProvider>
+            <Board board={enhancedBoard} />
+            <SolveButtons />
+          </AppProvider>
         </div>
       </Container>
     </div>

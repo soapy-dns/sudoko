@@ -4,7 +4,6 @@ import { EnhancedBoard, Houses } from "./types"
 
 interface Props {
   board: EnhancedBoard
-  //   boardWidth: number
   houses: Houses
 }
 export const eliminateCandidates = ({ houses, board }: Props) => {
@@ -20,5 +19,5 @@ export const eliminateCandidates = ({ houses, board }: Props) => {
       const candidatesToRemove = getCandidatesToRemove({ indices, board })
       removeCandidatesFromCell({ cell, candidatesToRemove })
     })
-
+  }
 }

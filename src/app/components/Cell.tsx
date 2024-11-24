@@ -2,6 +2,8 @@
 import { callbackify } from "util"
 import { EnhancedCell } from "../lib/types"
 import { Candidates } from "./Candidates"
+import { useContext } from "react"
+import { AppContext } from "../ui/context/AppProvider"
 
 interface Props {
   boardWidth: number
@@ -9,13 +11,11 @@ interface Props {
   //   cellIndex: number // TODO: should this be in the boardCell?
 }
 export const Cell: React.FC<Props> = ({ boardWidth, cell }) => {
-  //   const id = 1
-  //   const boardCell = { val: 1, candidates: [1, 2, 3, 4, 5, 6, 7, 8, 9] }
-  //   const boardWidth = 9
+  const { showCandidates } = useContext(AppContext)
+
   const boxSize = Math.sqrt(boardWidth)
   const modValue = boxSize - 1
 
-  //   const val = cell.val === null ? "" : cell.val
   const candidates = cell.candidates
   const maxlength = boardWidth < 10 ? 1 : 2
 
@@ -38,7 +38,7 @@ export const Cell: React.FC<Props> = ({ boardWidth, cell }) => {
           maxLength={maxlength}
         />
       ) : (
-        <Candidates cellIndex={cell.index} boardWidth={boardWidth} candidates={candidates} />
+        showCandidates && <Candidates cellIndex={cell.index} boardWidth={boardWidth} candidates={candidates} />
       )}
     </div>
   )
