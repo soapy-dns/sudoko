@@ -1,10 +1,10 @@
 "use client"
 
 import { Container } from "./components/button/container/Container"
-import { initBoard } from "./lib/initBoard"
+import { initBoard } from "./lib/setup/initBoard"
 import { Board } from "./components/Board"
 import { SolveButtons } from "./components/SolveButtons"
-import { generateHouses } from "./lib/generateHouses"
+import { generateHouses } from "./lib/setup/generateHouses"
 import { eliminateCandidates } from "./lib/eliminateCandidates"
 import { AppProvider } from "./ui/context/AppProvider"
 

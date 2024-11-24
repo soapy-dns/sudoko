@@ -1,4 +1,4 @@
-import { Houses } from "./types"
+import { Houses } from "../types"
 
 /* generateHouseIndexList
 Assumes each cell has an index starting top left, going right, then down. For a 9 x 9 puzzle, the first cell is 0, the first cell on the 2nd row is 10.

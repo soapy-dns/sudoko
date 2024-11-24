@@ -1,5 +1,5 @@
-import { Board, EnhancedBoard } from "./types"
-import { getBoxIndex } from "./utils"
+import { Board, EnhancedBoard } from "../types"
+import { getBoxIndex } from "../utils"
 
 export const initBoard = (board: Board): EnhancedBoard => {
   //   const alreadyEnhanced = board[0] !== null && typeof board[0] === "object"

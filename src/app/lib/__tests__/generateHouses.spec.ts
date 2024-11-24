@@ -1,4 +1,4 @@
-import { generateHouses } from "../generateHouses"
+import { generateHouses } from "../setup/generateHouses"
 
 describe("generateHouseIndexList", () => {
   it("should generate correct row indexes for a 9x9 board", () => {

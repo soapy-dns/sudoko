@@ -1,4 +1,4 @@
-import { initBoard } from "../initBoard"
+import { initBoard } from "../setup/initBoard"
 import { Board, EnhancedBoard } from "../types"
 
 describe("initBoard", () => {

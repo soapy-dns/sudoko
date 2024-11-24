@@ -1,4 +1,7 @@
 // TODO:
+
+import { EnhancedBoard, Houses } from "../types"
+
 //indexes of cells in each house - generated on the fly based on boardSize
 const houses = [
   //rows
@@ -8,8 +11,6 @@ const houses = [
   //boxes
   []
 ]
-
-const boardSize = 9 // TODO: default
 
 // prettier-ignore
 const board = [
@@ -24,21 +25,28 @@ const board = [
 			, ,7,3,4, , , ,9,undefined
 		]
 //NOTE: if last cell of board is empty 'undefined' has to be used as value!
+interface Props {
+  board: EnhancedBoard
+  houses: Houses
+}
 
-export const openSingles = () => {
+export const openSingles = ({ board, houses }: Props) => {
+  const boardSize = board.length
   const hlength = houses.length
-  for (let boxIndex = 0; boxIndex < hlength; boxIndex++) {
+
+  // Object.
+  for (let houseIndex = 0; houseIndex < hlength; houseIndex++) {
     //for each such house
     const housesCompleted = 0 //if goes up to 9, sudoku is finished
 
-    for (const j = 0; j < boardSize; j++) {
+    for (let cellIndex = 0; cellIndex < boardSize; cellIndex++) {
       const emptyCells = []
 
       // for each cell..
       for (const k = 0; k < boardSize; k++) {
-        const boardIndex = houses[boxIndex][j][k]
+        const boardIndex = houses[houseIndex][cellIndex][k]
         if (board[boardIndex].val === null) {
-          emptyCells.push({ house: houses[boxIndex][j], cell: boardIndex })
+          emptyCells.push({ house: houses[houseIndex][cellIndex], cell: boardIndex })
           if (emptyCells.length > 1) {
             //log("more than one empty cell, house area :["+i+"]["+j+"]");
             break
