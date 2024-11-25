@@ -1,4 +1,5 @@
 import { eliminateCandidates } from "@/app/lib/eliminateCandidates"
+import { resetCandidates } from "@/app/lib/resetCandidates"
 import { generateHouses } from "@/app/lib/setup/generateHouses"
 import { initBoard } from "@/app/lib/setup/initBoard"
 import { getAllCandidates } from "@/app/lib/setup/utils"
@@ -50,7 +51,8 @@ export const BoardProvider = ({ children }: { children: ReactNode }) => {
     const oldCell = board[index]
     const newCell = { ...oldCell, val: value, candidates: getAllCandidates(boardWidth) }
     newBoard[index] = newCell
-    eliminateCandidates({ board: newBoard, houses })
+    resetCandidates(newBoard)
+    eliminateCandidates({ board: newBoard, houses }) // TODO: can we only do this for the affected row, column and box?
 
     setBoard(newBoard)
   }
