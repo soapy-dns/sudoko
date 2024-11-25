@@ -1,17 +1,17 @@
 "use client"
-import { callbackify } from "util"
+
 import { EnhancedCell } from "../lib/types"
 import { Candidates } from "./Candidates"
 import { useContext } from "react"
-import { AppContext } from "../ui/context/AppProvider"
+import { BoardContext } from "../ui/context/BoardProvider"
 
 interface Props {
   boardWidth: number
   cell: EnhancedCell
-  //   cellIndex: number // TODO: should this be in the boardCell?
 }
+
 export const Cell: React.FC<Props> = ({ boardWidth, cell }) => {
-  const { showCandidates } = useContext(AppContext)
+  const { showCandidates, updateCell } = useContext(BoardContext)
 
   const boxSize = Math.sqrt(boardWidth)
   const modValue = boxSize - 1
@@ -24,21 +24,31 @@ export const Cell: React.FC<Props> = ({ boardWidth, cell }) => {
   const borderRight = cell.coord.x % boxSize === modValue ? "border-r-2 " : ""
   const borderBottom = cell.coord.y % boxSize === modValue ? "border-b-2 " : ""
 
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    updateCell(cell.index, parseInt(e.target.value))
+    // if (e.target.value === "") {
+    //   // clear cell
+    // } else {
+    //   // dispatch({ type: "SET_CELL", payload: { index: cell.index, val: parseInt(e.target.value) } })
+    // }
+  }
+
   return (
     <div
       key={`cell${cell.index}`}
-      className={`border border-primary h-12 w-13 ${borderRight} ${borderBottom} ${borderLeft} ${borderTop}  border-primary flex justify-center items-center `}
+      className={`relative border border-primary h-12 w-13 ${borderRight} ${borderBottom} ${borderLeft} ${borderTop}  border-primary flex justify-center items-center `}
     >
-      {cell.val ? (
-        <input
-          value={cell.val}
-          className="z-10 w-full text-center bg-gray-50"
-          onChange={() => {}}
-          pattern="\d*"
-          maxLength={maxlength}
-        />
-      ) : (
-        showCandidates && <Candidates cellIndex={cell.index} boardWidth={boardWidth} candidates={candidates} />
+      <input
+        value={cell.val || ""}
+        className="w-full h-full text-center z-10 opacity-50"
+        onChange={handleOnChange}
+        pattern="\d*"
+        maxLength={maxlength}
+      />
+      {showCandidates && (
+        <div className="absolute">
+          <Candidates cellIndex={cell.index} boardWidth={boardWidth} candidates={candidates} />
+        </div>
       )}
     </div>
   )

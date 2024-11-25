@@ -1,10 +1,9 @@
-import { EnhancedBoard } from "../lib/types"
+import { useContext } from "react"
 import { Cell } from "./Cell"
+import { BoardContext } from "../ui/context/BoardProvider"
 
-interface BoardProps {
-  board: EnhancedBoard
-}
-export const Board: React.FC<BoardProps> = ({ board }) => {
+export const Board: React.FC = () => {
+  const { board } = useContext(BoardContext)
   const boardWidth = Math.sqrt(board.length) || 9
 
   return (

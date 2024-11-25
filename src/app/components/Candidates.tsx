@@ -13,10 +13,10 @@ export const Candidates: React.FC<Props> = ({ boardWidth, candidates, cellIndex 
   }
 
   return (
-    <div className="grid grid-cols-3 w-full">
+    <div className="grid grid-cols-3 w-full focus:outline">
       {range.map((it, index) => {
         return candidates.includes(it) ? (
-          <div key={`candidate${cellIndex}-${index}`} className="text-xs text-center text-red-300 size-3">
+          <div key={`candidate${cellIndex}-${index}`} className="text-xs text-center text-red-600 size-3">
             {it}
           </div>
         ) : (
