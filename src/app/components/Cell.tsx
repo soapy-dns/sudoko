@@ -25,12 +25,12 @@ export const Cell: React.FC<Props> = ({ boardWidth, cell }) => {
   const borderBottom = cell.coord.y % boxSize === modValue ? "border-b-2 " : ""
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateCell(cell.index, parseInt(e.target.value))
-    // if (e.target.value === "") {
-    //   // clear cell
-    // } else {
-    //   // dispatch({ type: "SET_CELL", payload: { index: cell.index, val: parseInt(e.target.value) } })
-    // }
+    if (e.target.value === "") {
+      // clear cell
+      updateCell(cell.index)
+    } else {
+      updateCell(cell.index, parseInt(e.target.value))
+    }
   }
 
   return (
@@ -40,7 +40,7 @@ export const Cell: React.FC<Props> = ({ boardWidth, cell }) => {
     >
       <input
         value={cell.val || ""}
-        className="w-full h-full text-center bg-gray-50 z-10 opacity-60"
+        className="w-full h-full text-center bg-gray-50 z-10 opacity-60   focus:bg-red-100"
         onChange={handleOnChange}
         pattern="\d*"
         maxLength={maxlength}

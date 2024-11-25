@@ -1,5 +1,6 @@
 import { Board, EnhancedBoard } from "../types"
 import { getBoxIndex } from "../utils"
+import { getAllCandidates, getNullCandidates } from "./utils"
 
 export const initBoard = (board: Board): EnhancedBoard => {
   //   const alreadyEnhanced = board[0] !== null && typeof board[0] === "object"
@@ -7,8 +8,8 @@ export const initBoard = (board: Board): EnhancedBoard => {
   const boardWidth = Math.sqrt(boardSize) || 9
   const boxWidth = Math.sqrt(boardWidth) || 3
 
-  const nullCandidateList = []
-  const boardNumbers = []
+  // const nullCandidateList = []
+  // const boardNumbers = []
   const enhancedBoard: EnhancedBoard = []
   //   $board.attr("data-board-size", boardSize)
   //   if (boardSize % 1 !== 0 || Math.sqrt(boardSize) % 1 !== 0) {
@@ -16,10 +17,12 @@ export const initBoard = (board: Board): EnhancedBoard => {
   //     // if (typeof opts.boardErrorFn === "function") opts.boardErrorFn({ msg: "invalid board size" })
   //     return
   //   }
-  for (let i = 0; i < boardWidth; i++) {
-    boardNumbers.push(i + 1) // all possible numbers in a row / column / box
-    nullCandidateList.push(null)
-  }
+  // for (let i = 0; i < boardWidth; i++) {
+  //   boardNumbers.push(i + 1) // all possible numbers in a row / column / box
+  //   nullCandidateList.push(null)
+  // }
+  const nullCandidateList = getNullCandidates(boardWidth)
+  const allCandidates = getAllCandidates(boardWidth)
 
   //   if (!alreadyEnhanced) {
   //enhance board to handle candidates, and possibly other params
@@ -27,7 +30,7 @@ export const initBoard = (board: Board): EnhancedBoard => {
     const cellVal = board[j]
     const x = j % boardWidth
     const y = Math.floor(j / boardWidth)
-    const candidates = cellVal ? [...nullCandidateList] : [...boardNumbers] // if it's unknown, the candidates (at this time) are all numbers
+    const candidates = cellVal ? [...nullCandidateList] : [...allCandidates] // if it's unknown, the candidates (at this time) are all numbers
 
     const enhancedCell = {
       index: j,

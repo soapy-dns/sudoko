@@ -1,6 +1,7 @@
 import { eliminateCandidates } from "@/app/lib/eliminateCandidates"
 import { generateHouses } from "@/app/lib/setup/generateHouses"
 import { initBoard } from "@/app/lib/setup/initBoard"
+import { getAllCandidates } from "@/app/lib/setup/utils"
 import { EnhancedBoard } from "@/app/lib/types"
 import React, { ReactNode, useState, createContext } from "react"
 
@@ -24,7 +25,7 @@ eliminateCandidates({ board: enhancedBoard, houses })
 interface Props {
   showCandidates: boolean
   toggleCandidatesView: () => void
-  updateCell: (index: number, value: number) => void
+  updateCell: (index: number, value?: number) => void
   board: EnhancedBoard
 }
 
@@ -43,10 +44,11 @@ export const BoardProvider = ({ children }: { children: ReactNode }) => {
     setShowCandidates(!showCandidates)
   }
 
-  const updateCell = (index: number, value: number) => {
+  const updateCell = (index: number, value?: number) => {
+    const boardWidth = Math.sqrt(board.length)
     const newBoard = [...board]
     const oldCell = board[index]
-    const newCell = { ...oldCell, val: value }
+    const newCell = { ...oldCell, val: value, candidates: getAllCandidates(boardWidth) }
     newBoard[index] = newCell
     eliminateCandidates({ board: newBoard, houses })
 
