@@ -6,6 +6,8 @@ interface Props {
   board: EnhancedBoard
   houses: Houses
 }
+
+// This is really the single candidate strategy.
 export const eliminateCandidates = ({ houses, board }: Props) => {
   const boardSize = board.length
 
