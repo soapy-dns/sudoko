@@ -3,28 +3,15 @@ import { getBoxIndex } from "../utils"
 import { getAllCandidates, getNullCandidates } from "./utils"
 
 export const initBoard = (board: Board): EnhancedBoard => {
-  //   const alreadyEnhanced = board[0] !== null && typeof board[0] === "object"
   const boardSize = board.length
   const boardWidth = Math.sqrt(boardSize) || 9
   const boxWidth = Math.sqrt(boardWidth) || 3
 
-  // const nullCandidateList = []
-  // const boardNumbers = []
-  const enhancedBoard: EnhancedBoard = []
-  //   $board.attr("data-board-size", boardSize)
-  //   if (boardSize % 1 !== 0 || Math.sqrt(boardSize) % 1 !== 0) {
-  //     console.log("invalid boardSize: " + boardSize)
-  //     // if (typeof opts.boardErrorFn === "function") opts.boardErrorFn({ msg: "invalid board size" })
-  //     return
-  //   }
-  // for (let i = 0; i < boardWidth; i++) {
-  //   boardNumbers.push(i + 1) // all possible numbers in a row / column / box
-  //   nullCandidateList.push(null)
-  // }
+  const enhancedBoard: EnhancedBoard = { size: boardSize, width: boardWidth, cells: [] }
+
   const nullCandidateList = getNullCandidates(boardWidth)
   const allCandidates = getAllCandidates(boardWidth)
 
-  //   if (!alreadyEnhanced) {
   //enhance board to handle candidates, and possibly other params
   for (let j = 0; j < boardSize; j++) {
     const cellVal = board[j]
@@ -40,7 +27,7 @@ export const initBoard = (board: Board): EnhancedBoard => {
       boxIndex: getBoxIndex(x, y, boxWidth)
       //title: "" possibl add in 'A1. B1...etc
     }
-    enhancedBoard.push(enhancedCell)
+    enhancedBoard.cells.push(enhancedCell)
   }
 
   return enhancedBoard

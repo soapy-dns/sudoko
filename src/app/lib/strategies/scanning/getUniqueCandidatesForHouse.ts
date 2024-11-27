@@ -14,7 +14,7 @@ export const getUniqueCandidatesForHouse = ({ house: cellIndices, board, cell }:
   const filteredCellIndices = cellIndices.filter((index) => index !== cell.index)
 
   filteredCellIndices.forEach((index) => {
-    const { candidates: otherCandidates } = board[index]
+    const { candidates: otherCandidates } = board.cells[index]
     const otherCandidatesSet = new Set(otherCandidates)
     const diff = thisCandidatesSet.difference(otherCandidatesSet)
     thisCandidatesSet = diff
