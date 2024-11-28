@@ -1,6 +1,6 @@
 import { Board, EnhancedBoard } from "../types"
 import { getBoxIndex } from "../utils"
-import { getAllCandidates, getNullCandidates } from "./utils"
+import { getAllCandidates } from "./utils"
 
 export const initBoard = (board: Board): EnhancedBoard => {
   const boardSize = board.length
@@ -9,7 +9,6 @@ export const initBoard = (board: Board): EnhancedBoard => {
 
   const enhancedBoard: EnhancedBoard = { size: boardSize, width: boardWidth, cells: [] }
 
-  const nullCandidateList = getNullCandidates(boardWidth)
   const allCandidates = getAllCandidates(boardWidth)
 
   //enhance board to handle candidates, and possibly other params
@@ -17,7 +16,7 @@ export const initBoard = (board: Board): EnhancedBoard => {
     const cellVal = board[j]
     const x = j % boardWidth
     const y = Math.floor(j / boardWidth)
-    const candidates = cellVal ? [...nullCandidateList] : [...allCandidates] // if it's unknown, the candidates (at this time) are all numbers
+    const candidates = cellVal ? [] : [...allCandidates]
 
     const enhancedCell = {
       index: j,

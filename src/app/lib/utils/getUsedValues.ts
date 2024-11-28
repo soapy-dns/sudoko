@@ -7,7 +7,6 @@ interface Props {
 
 // returns the values that are already used in the cells in the row / col / box
 export const getUsedValues = ({ indices, board }: Props): number[] => {
-  console.log("--getUsedValues indices--", indices)
   const usedValues = indices.reduce((accum, it) => {
     const usedValue = board.cells[it].val
 

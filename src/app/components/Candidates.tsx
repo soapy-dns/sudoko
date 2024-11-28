@@ -1,16 +1,14 @@
-type NumberOrNull = number | null
+import { getAllCandidates } from "../lib/setup/utils"
+
 interface Props {
   boardWidth: number
-  candidates: NumberOrNull[]
+  candidates: number[]
   cellIndex: number
 }
 
 // TODO: candidates type may change
 export const Candidates: React.FC<Props> = ({ boardWidth, candidates, cellIndex }) => {
-  const range: number[] = []
-  for (let i = 0; i < boardWidth; i++) {
-    range.push(i + 1)
-  }
+  const range: number[] = getAllCandidates(boardWidth)
 
   return (
     <div className="grid grid-cols-3 w-full " tabIndex={0}>

@@ -2,11 +2,10 @@ type BoardCell = number | undefined
 
 export type Board = BoardCell[]
 
-type NumberOrNull = number | null
 export interface EnhancedCell {
   index: number
   val: BoardCell
-  candidates: NumberOrNull[]
+  candidates: number[]
   coord: { x: number; y: number }
   boxIndex: number
 }

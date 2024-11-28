@@ -64,9 +64,12 @@ console.log("length--->", defaultBoard.length)
 const houses = generateHouses(9)
 const enhancedBoard = initBoard(defaultBoard)
 eliminateCandidates({ board: enhancedBoard, houses })
-nakedCandidates({ numOfCandidates: 2, board: enhancedBoard, houses })
 // console.log("enhancedBoard", enhancedBoard)
 const scannedDefaultBoard = implementScanning({ houses, board: enhancedBoard })
+
+// const changedCells = nakedCandidates({ numOfCandidates: 2, board: scannedDefaultBoard, houses })
+// console.log("changedCells", changedCells)
+
 // console.log("scannedDefaultBoard", scannedDefaultBoard)
 
 // const scannedDefaultBoard = enhancedBoard // TODO: tempororary

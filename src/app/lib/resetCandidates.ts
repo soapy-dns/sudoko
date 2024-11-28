@@ -1,4 +1,4 @@
-import { getAllCandidates, getNullCandidates } from "./setup/utils"
+import { getAllCandidates } from "./setup/utils"
 import { EnhancedBoard } from "./types"
 
 // This is a bit quick and dirty. We shouldn't need to reset all the candidates.
@@ -6,13 +6,12 @@ import { EnhancedBoard } from "./types"
 export const resetCandidates = (board: EnhancedBoard) => {
   const { size, width } = board
 
-  const nullCandidateList = getNullCandidates(width)
   const allCandidates = getAllCandidates(width)
 
   for (let j = 0; j < size; j++) {
     const cell = board.cells[j]
     const { val: cellVal } = cell
-    const candidates = cellVal ? [...nullCandidateList] : [...allCandidates] // if it's unknown, the candidates (at this time) are all numbers
+    const candidates = cellVal ? [] : [...allCandidates] // if it's unknown, the candidates (at this time) are all numbers
 
     cell.candidates = candidates
   }

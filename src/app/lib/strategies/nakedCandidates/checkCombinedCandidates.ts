@@ -18,6 +18,7 @@ interface StoredCell {
 // TODO: return type
 export const checkCombinedCandidates = ({ board, indices, startIndex, numOfCandidates }: Props): boolean | number[] => {
   //log("startIndex: "+startIndex);
+  console.log("checkCombinedCandidates", startIndex)
   const { width } = board
   const storedCells: StoredCell[] = []
   const minIndexes = [-1]
@@ -30,11 +31,16 @@ export const checkCombinedCandidates = ({ board, indices, startIndex, numOfCandi
     //or in a this loop deeper down in recursions
     minIndexes[startIndex + 1] = i + 1
 
+    // console.log("--minIndexes--", minIndexes)
+
     const cellIndex = indices[i]
     const cellCandidates = listCellsCandidates({ cellIndex, board })
+    // console.log("--cellCandidates--", cellCandidates)
 
     // this is not a pair, triple or whatever we are looking for based on numOfCandidates
     if (cellCandidates.length === 0 || cellCandidates.length > numOfCandidates) continue
+
+    // console.log("--cellIndex, cellCandidates--", cellIndex, cellCandidates)
 
     //try adding this cell and it's cellCandidates,
     //but first need to check that that doesn't make (unique) amount of
@@ -52,7 +58,9 @@ export const checkCombinedCandidates = ({ board, indices, startIndex, numOfCandi
           if (!tempCandidates.includes(storedCandidate)) tempCandidates.push(storedCandidate)
         })
       })
-
+      if ([17, 62, 71, 33, 35, 8].includes(cellIndex)) {
+        console.log("--cellIndex tempCandidates--", cellIndex, indices, tempCandidates, storedCells)
+      }
       // TODO: understand why we are doing this
       if (tempCandidates.length > numOfCandidates) {
         continue //combined candidates spread over > n cells, won't work
