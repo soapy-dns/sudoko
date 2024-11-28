@@ -10,7 +10,7 @@
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "typecheck": "tsc --project ./tsconfig.json",
-    "typecheck:watch": "tsc --project ./tsconfig.json --watch"
+    "typecheck:watch": "tsc --project ./tsconfigTest.json --watch"
   },
   "dependencies": {
     "next": "15.0.3",

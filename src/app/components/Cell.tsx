@@ -36,7 +36,7 @@ export const Cell: React.FC<Props> = ({ boardWidth, cell }) => {
   return (
     <div
       key={`cell${cell.index}`}
-      className={`relative border border-primary h-12 w-13 ${borderRight} ${borderBottom} ${borderLeft} ${borderTop}  border-primary flex justify-center items-center `}
+      className={`relative border border-primary h-12  ${borderRight} ${borderBottom} ${borderLeft} ${borderTop}  border-primary flex justify-center items-center `}
     >
       <input
         value={cell.val || ""}

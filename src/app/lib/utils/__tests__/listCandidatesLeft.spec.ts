@@ -1,4 +1,4 @@
-import { listCandidatesLeft } from "../listCandidatesLeft"
+import { listCellsCandidates } from "../listCellsCandidates"
 import { EnhancedBoard } from "../../types"
 
 describe("listCandidatesLeft", () => {
@@ -10,7 +10,7 @@ describe("listCandidatesLeft", () => {
         { candidates: [5, 6, 7, 8, 9] }
       ]
     }
-    const result = listCandidatesLeft({ cellIndex: 0, board })
+    const result = listCellsCandidates({ cellIndex: 0, board })
     expect(result).toEqual([1, 2, 4])
   })
 
@@ -18,7 +18,7 @@ describe("listCandidatesLeft", () => {
     const board: EnhancedBoard = {
       cells: [{ candidates: [null, null, null, null, null] }, { candidates: [1, 2, 3, 4, 5] }]
     }
-    const result = listCandidatesLeft({ cellIndex: 0, board })
+    const result = listCellsCandidates({ cellIndex: 0, board })
     expect(result).toEqual([])
   })
 
@@ -26,7 +26,7 @@ describe("listCandidatesLeft", () => {
     const board: EnhancedBoard = {
       cells: [{ candidates: [1, 2, 3, 4, 5] }, { candidates: [null, null, null, null, null] }]
     }
-    const result = listCandidatesLeft({ cellIndex: 0, board })
+    const result = listCellsCandidates({ cellIndex: 0, board })
     expect(result).toEqual([1, 2, 3, 4, 5])
   })
 
@@ -34,7 +34,7 @@ describe("listCandidatesLeft", () => {
     const board: EnhancedBoard = {
       cells: [{ candidates: [] }, { candidates: [1, 2, 3, 4, 5] }]
     }
-    const result = listCandidatesLeft({ cellIndex: 0, board })
+    const result = listCellsCandidates({ cellIndex: 0, board })
     expect(result).toEqual([])
   })
 })

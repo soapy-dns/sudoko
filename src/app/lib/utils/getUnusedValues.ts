@@ -7,7 +7,8 @@ interface Props {
   board: EnhancedBoard
 }
 
-// returns the values that are NOT used in the cells in the row / col / box
+// returns the values that are NOT already used in the cells in the row / col / box.
+// ie they are the possible values
 export const getUnusedValues = ({ indices, board }: Props): number[] => {
   const usedValues = getUsedValues({ indices, board })
   const allCandidates = getAllCandidates(board.width)

@@ -24,6 +24,7 @@ export const eliminateCandidates = ({ houses, board }: Props) => {
 
     const candidatesToRemoveRow = getUsedValues({ indices: houses.rowIndices[y], board })
     const candidatesToRemoveCol = getUsedValues({ indices: houses.colIndices[x], board })
+
     const candidatesToRemoveBox = getUsedValues({ indices: houses.boxIndices[boxIndex], board })
 
     if (logIndex === cellIndex) {

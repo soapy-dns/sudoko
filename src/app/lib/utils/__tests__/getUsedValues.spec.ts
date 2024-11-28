@@ -1,8 +1,41 @@
 import { getUsedValues } from "../getUsedValues"
 import { EnhancedBoard } from "../../types"
+// jest.mock("react-router-dom", () => ({
+//   ...jest.requireActual("react-router-dom"),
+//   useLocation: () => ({
+//     search: "referrer=coles"
+//   })
+// }))
+// jest.mock("./UserService", () => {
+//   return {
+//     UserService: jest.fn().mockImplementation(() => ({
+//       getUser: mockGetUser
+//     }))
+//   }
+// })
+
+const defaultBoard: EnhancedBoard = {
+  size: 0,
+  width: 0,
+  cells: []
+}
 
 describe("getCandidatesToRemove", () => {
   it("should return an empty array when houseIndices is empty", () => {
+    // const board = {
+    //   ...defaultBoard,
+    //   cells: [
+    //     { val: 1, candidates: [] },
+    //     { val: 2, candidates: [] },
+    //     { val: 3, candidates: [] },
+    //     { val: 4, candidates: [] },
+    //     { val: 5, candidates: [] },
+    //     { val: 6, candidates: [] },
+    //     { val: 7, candidates: [] },
+    //     { val: 8, candidates: [] },
+    //     { val: 9, candidates: [] }
+    //   ]
+    // }
     const board: EnhancedBoard = {
       cells: [
         { val: 1, candidates: [] },

@@ -3,6 +3,7 @@ import { resetCandidates } from "@/app/lib/resetCandidates"
 import { generateHouses } from "@/app/lib/setup/generateHouses"
 import { initBoard } from "@/app/lib/setup/initBoard"
 import { getAllCandidates } from "@/app/lib/setup/utils"
+import { nakedCandidates } from "@/app/lib/strategies/nakedCandidates/nakedCandidates"
 import { implementScanning } from "@/app/lib/strategies/scanning/implementScanning"
 import { EnhancedBoard } from "@/app/lib/types"
 import React, { ReactNode, useState, createContext } from "react"
@@ -63,6 +64,7 @@ console.log("length--->", defaultBoard.length)
 const houses = generateHouses(9)
 const enhancedBoard = initBoard(defaultBoard)
 eliminateCandidates({ board: enhancedBoard, houses })
+nakedCandidates({ numOfCandidates: 2, board: enhancedBoard, houses })
 // console.log("enhancedBoard", enhancedBoard)
 const scannedDefaultBoard = implementScanning({ houses, board: enhancedBoard })
 // console.log("scannedDefaultBoard", scannedDefaultBoard)
