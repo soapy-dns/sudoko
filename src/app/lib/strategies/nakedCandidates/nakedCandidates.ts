@@ -1,6 +1,4 @@
-import { removeAllListeners } from "process"
-import { EnhancedBoard, EnhancedCell, Houses } from "../../types"
-import { getMatchingCells } from "../../utils/getMatchingCells"
+import { EnhancedBoard, Houses } from "../../types"
 import { getCellsWithMatchingCandidates } from "./getCellsWithMatchingCandidates"
 import { removeCandidatesFromCell } from "../../removeCandidatesFromCell"
 
@@ -16,9 +14,11 @@ export const nakedCandidates = ({ numOfCandidates, houses, board }: Props) => {
   Object.values(houses).forEach((house) => {
     house.forEach((cellIndices) => {
       const cellWithMatchingCandidates = getCellsWithMatchingCandidates({ board, cellIndices, numOfCandidates })
+      console.log("--cellWithMatchingCandidates--", cellWithMatchingCandidates)
       const candidatesToRemove = cellWithMatchingCandidates.map((cell) => {
         return cell.candidates
       })
+      console.log("--candidatesToRemove--", candidatesToRemove)
       const cellsWithMatchingIndices = cellWithMatchingCandidates.map((it) => it.index)
 
       const flattenned = candidatesToRemove.flat()
@@ -31,15 +31,6 @@ export const nakedCandidates = ({ numOfCandidates, houses, board }: Props) => {
           removeCandidatesFromCell({ cell, candidatesToRemove: dedupedCandidatesToRemove })
         }
       })
-      //   const cellsForIndices = cellIndices.reduce((accum, it) => {
-      //     const cell = board.cells[it]
-      //     if (!cell.val && !cellsWithMatchingIndices.includes(cell.index)) {
-      //         accum.push()
-      //     }
-      //     return accum
-      //   } ,[] as EnhancedCell[]}
-
-      //   removeCandidatesFromCell({cell, candidatesToRemove: dedupedCandidatesToRemove})
     })
   })
 }

@@ -23,19 +23,6 @@ import React, { ReactNode, useState, createContext } from "react"
 
 // diabolic?
 // prettier-ignore
-// const defaultBoard = [
-//       ,7,,,8,1,,9,,
-//       ,,,2,4,,7,,,
-//       ,,,,,,,,6,
-//       8,,,,,,,3,,
-//       ,1,,5,,4,,8,,
-//       ,6,,,,,,,9,
-//       1,,,,,,,,,
-//       ,,7,,3,9,,,,
-//       ,4,,6,1,,,2,undefined]
-
-//diabolic at difficult state, but wrong
-// prettier-ignore
 const defaultBoard = [
       ,7,,3,8,1,,9,,
       ,,,2,4,6,7,,,
@@ -45,8 +32,8 @@ const defaultBoard = [
       ,6,,8,2,3,1,7,9,
       1,,,7,5,2,,,,
       ,,7,4,3,9,,,,
-      ,4,,6,1,8,,2,7
-        ]
+      ,4,,6,1,8,,2,7]
+
 // prettier-ignore
 const defaultBoardX = [
           ,,3,,,,1,,,
@@ -68,12 +55,7 @@ eliminateCandidates({ board: enhancedBoard, houses })
 const scannedDefaultBoard = implementScanning({ houses, board: enhancedBoard })
 
 nakedCandidates({ numOfCandidates: 2, houses, board: scannedDefaultBoard })
-// const changedCells = nakedCandidates({ numOfCandidates: 2, board: scannedDefaultBoard, houses })
-// console.log("changedCells", changedCells)
-
-// console.log("scannedDefaultBoard", scannedDefaultBoard)
-
-// const scannedDefaultBoard = enhancedBoard // TODO: tempororary
+nakedCandidates({ numOfCandidates: 3, houses, board: scannedDefaultBoard })
 
 interface Props {
   showCandidates: boolean
@@ -98,25 +80,18 @@ export const BoardProvider = ({ children }: { children: ReactNode }) => {
   }
 
   const updateCell = (index: number, value?: number) => {
-    // console.log("updatecell", index)
     const { width } = board
     const newBoard = { ...board, cells: [...board.cells] }
     const oldCell = board.cells[index]
 
-    // console.log("updating cell", oldCell.coord.x, oldCell.coord.y)
     const newCell = { ...oldCell, val: value, candidates: getAllCandidates(width) }
     newBoard.cells[index] = newCell
-    console.log("before reset", newBoard.cells[48])
     resetCandidates(newBoard)
-    // if (newCell.coord.x === 5 && newCell.coord.y === 3) {
-    //   console.log("cell=", newBoard.cells[index])
-    // }
-    eliminateCandidates({ board: newBoard, houses }) // TODO: can we only do this for the affected row, column and box?
-    console.log("after eliminate", newBoard.cells[48])
-    const scannedBoard = implementScanning({ houses, board: newBoard })
-    console.log(" after scanning", newBoard.cells[48])
 
-    // const scannedBoard = newBoard
+    eliminateCandidates({ board: newBoard, houses }) // TODO: can we only do this for the affected row, column and box?
+    const scannedBoard = implementScanning({ houses, board: newBoard })
+    nakedCandidates({ numOfCandidates: 2, houses, board: scannedBoard })
+    // nakedCandidates({ numOfCandidates: 3, houses, board: scannedBoard })
 
     setBoard(scannedBoard)
   }
