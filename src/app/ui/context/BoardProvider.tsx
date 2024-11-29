@@ -91,7 +91,7 @@ export const BoardProvider = ({ children }: { children: ReactNode }) => {
     eliminateCandidates({ board: newBoard, houses }) // TODO: can we only do this for the affected row, column and box?
     const scannedBoard = implementScanning({ houses, board: newBoard })
     nakedCandidates({ numOfCandidates: 2, houses, board: scannedBoard })
-    // nakedCandidates({ numOfCandidates: 3, houses, board: scannedBoard })
+    nakedCandidates({ numOfCandidates: 3, houses, board: scannedBoard })
 
     setBoard(scannedBoard)
   }
