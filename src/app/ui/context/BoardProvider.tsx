@@ -67,6 +67,7 @@ eliminateCandidates({ board: enhancedBoard, houses })
 // console.log("enhancedBoard", enhancedBoard)
 const scannedDefaultBoard = implementScanning({ houses, board: enhancedBoard })
 
+nakedCandidates({ numOfCandidates: 2, houses, board: scannedDefaultBoard })
 // const changedCells = nakedCandidates({ numOfCandidates: 2, board: scannedDefaultBoard, houses })
 // console.log("changedCells", changedCells)
 

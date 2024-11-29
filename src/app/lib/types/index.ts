@@ -11,7 +11,6 @@ export interface EnhancedCell {
 }
 
 export type EnhancedBoard = {
-  // metadata can go here eg - size, width etc
   size: number
   width: number
   cells: EnhancedCell[]

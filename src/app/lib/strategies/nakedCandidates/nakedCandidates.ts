@@ -1,6 +1,8 @@
-import { EnhancedBoard, Houses } from "../../types"
-import { checkCombinedCandidates } from "./checkCombinedCandidates"
-import { getUnusedValues } from "../../utils/getUnusedValues"
+import { removeAllListeners } from "process"
+import { EnhancedBoard, EnhancedCell, Houses } from "../../types"
+import { getMatchingCells } from "../../utils/getMatchingCells"
+import { getCellsWithMatchingCandidates } from "./getCellsWithMatchingCandidates"
+import { removeCandidatesFromCell } from "../../removeCandidatesFromCell"
 
 interface Props {
   numOfCandidates: number
@@ -11,35 +13,33 @@ interface Props {
 // numOfCandidates is 2 for doubles 3 for triples
 // TODO: returns pattern or false.  Why would we want to do this?
 export const nakedCandidates = ({ numOfCandidates, houses, board }: Props) => {
-  console.log("nakedCandidates", numOfCandidates)
-  //for each type of house..(hor row / vert row / box)
-  // const hlength = houses.length
-  const { width } = board
+  Object.values(houses).forEach((house) => {
+    house.forEach((cellIndices) => {
+      const cellWithMatchingCandidates = getCellsWithMatchingCandidates({ board, cellIndices, numOfCandidates })
+      const candidatesToRemove = cellWithMatchingCandidates.map((cell) => {
+        return cell.candidates
+      })
+      const cellsWithMatchingIndices = cellWithMatchingCandidates.map((it) => it.index)
 
-  const houseTuple = Object.values(houses)
-  const hlength = houseTuple.length
+      const flattenned = candidatesToRemove.flat()
 
-  for (let i = 0; i < hlength; i++) {
-    //for each such house
-    for (let j = 0; j < width; j++) {
-      const indices = houseTuple[i][j]
-      //   if (indices === undefined) {
-      //     console.log("indices undefined", i, j, houseTuple[i])
-      //   }
-      if (getUnusedValues({ indices, board }).length <= numOfCandidates) {
-        //can't eliminate any candidates
-        continue
-      }
+      const dedupedCandidatesToRemove = Array.from(new Set(flattenned))
 
-      // TODO: maybe need this here, but moved to checkCombinedCandidates.ts
-      //   const combineInfo = [] //{cell: x, candidates: []}, {} ..
-      //   const minIndexes = [-1]
+      cellIndices.forEach((it) => {
+        const cell = board.cells[it]
+        if (!cell.val && !cellsWithMatchingIndices.includes(cell.index)) {
+          removeCandidatesFromCell({ cell, candidatesToRemove: dedupedCandidatesToRemove })
+        }
+      })
+      //   const cellsForIndices = cellIndices.reduce((accum, it) => {
+      //     const cell = board.cells[it]
+      //     if (!cell.val && !cellsWithMatchingIndices.includes(cell.index)) {
+      //         accum.push()
+      //     }
+      //     return accum
+      //   } ,[] as EnhancedCell[]}
 
-      //checks every combo of n candidates in house, returns pattern, or false
-      const result = checkCombinedCandidates({ board, indices, startIndex: 0, numOfCandidates })
-      //   console.log("--result--", result)
-      if (result !== false) return result
-    }
-  }
-  return false //pattern not found
+      //   removeCandidatesFromCell({cell, candidatesToRemove: dedupedCandidatesToRemove})
+    })
+  })
 }

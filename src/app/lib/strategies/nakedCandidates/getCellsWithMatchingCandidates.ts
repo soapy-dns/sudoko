@@ -1,5 +1,5 @@
-import { EnhancedBoard } from "../../types"
-import { listCellsCandidates } from "../../utils/listCellsCandidates"
+import { EnhancedBoard, EnhancedCell } from "../../types"
+import { getMatchingCells } from "../../utils/getMatchingCells"
 
 interface Props {
   numOfCandidates: number
@@ -8,16 +8,18 @@ interface Props {
 }
 
 // TODO:
-export const getCellsWithMatchingCandidates = ({ board, cellIndices, numOfCandidates }: Props): number[] => {
+export const getCellsWithMatchingCandidates = ({ board, cellIndices, numOfCandidates }: Props): EnhancedCell[] => {
   const relevantCells = cellIndices.map((it) => {
     return board.cells[it]
   })
 
   const cellsWithXCandidates = relevantCells.filter((cell) => {
-    return cell.candidates.length === numOfCandidates
+    return !cell.val && cell.candidates.length === numOfCandidates
   })
 
-    for (let i = Math.max(startIndex, minIndexes[startIndex]); i < width - numOfCandidates + startIndex; i++) {
+  const matchingCellIndices = getMatchingCells({ cells: cellsWithXCandidates, startIndex: 0 })
 
-  //   a.every((val, index) => val === b[index])
+  const matchingCells = matchingCellIndices.map((it) => board.cells[it])
+
+  return matchingCells
 }

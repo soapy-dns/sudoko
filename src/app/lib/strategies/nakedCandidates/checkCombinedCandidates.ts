@@ -1,5 +1,4 @@
 import { EnhancedBoard } from "../../types"
-import { listCellsCandidates } from "../../utils/listCellsCandidates"
 import { removeCandidatesFromCells } from "../../utils/removeCandidatesFromCells"
 
 interface Props {
@@ -34,7 +33,7 @@ export const checkCombinedCandidates = ({ board, indices, startIndex, numOfCandi
     // console.log("--minIndexes--", minIndexes)
 
     const cellIndex = indices[i]
-    const cellCandidates = listCellsCandidates({ cellIndex, board })
+    const cellCandidates = board.cells[cellIndex].candidates
     // console.log("--cellCandidates--", cellCandidates)
 
     // this is not a pair, triple or whatever we are looking for based on numOfCandidates
