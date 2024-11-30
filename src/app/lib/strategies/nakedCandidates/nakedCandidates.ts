@@ -44,9 +44,9 @@ export const nakedCandidates = ({ numOfCandidates, houses, board }: Props) => {
         if (!cell.val && !cellsWithMatchingIndices.includes(cell.index)) {
           //   console.log("remove ", dedupedCandidatesToRemove, "from", cell.candidates)
           removeCandidatesFromCell({ cell, candidatesToRemove: dedupedCandidatesToRemove })
-          //   if (cell.candidates.length === 0) {
-          //     console.log("--*** Neil *****cell, candidatesToRemove--", cell, dedupedCandidatesToRemove)
-          //   }
+          if (cell.candidates.length === 0) {
+            console.log("--*** Neil *****cell, candidatesToRemove--", cell, dedupedCandidatesToRemove)
+          }
         }
       })
     })

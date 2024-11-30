@@ -3,6 +3,7 @@ import { resetCandidates } from "@/app/lib/resetCandidates"
 import { generateHouses } from "@/app/lib/setup/generateHouses"
 import { initBoard } from "@/app/lib/setup/initBoard"
 import { getAllCandidates } from "@/app/lib/setup/utils"
+import { implementStrategies } from "@/app/lib/strategies"
 import { nakedCandidates } from "@/app/lib/strategies/nakedCandidates/nakedCandidates"
 import { implementScanning } from "@/app/lib/strategies/scanning/implementScanning"
 import { EnhancedBoard } from "@/app/lib/types"
@@ -20,10 +21,22 @@ import React, { ReactNode, useState, createContext } from "react"
 // 			,1, , ,9, , , ,6,
 // 			, ,7,3,4, , , ,9,undefined
 // 		]
+// prettier-ignore
+const hiddenCandidateBoard = [
+  4,,,3,1,9,,,6,
+    ,,1,,,,9,,,
+  ,6,7,4,,,,2,1,
+  7,,,,5,,,,4,
+  ,,,1,4,2,,,,
+  2,,,,7,,,,8,
+  ,2,,,,,,6,,
+  ,,4,,,,8,,,
+  1,,,5,,8,,,7,
+     ]
 
 // diabolic?
 // prettier-ignore
-const defaultBoard = [
+const diabolicBoard = [
       ,7,,3,8,1,,9,,
       ,,,2,4,6,7,,,
       ,,,9,7,5,,,6,
@@ -46,16 +59,13 @@ const defaultBoardX = [
           ,4,,,,,,1,,
           ,,1,,,,9,,undefined
         ]
+
+const defaultBoard = diabolicBoard
 console.log("length--->", defaultBoard.length)
 
 const houses = generateHouses(9)
 const enhancedBoard = initBoard(defaultBoard)
-eliminateCandidates({ board: enhancedBoard, houses })
-// console.log("enhancedBoard", enhancedBoard)
-const scannedDefaultBoard = implementScanning({ houses, board: enhancedBoard })
-
-nakedCandidates({ numOfCandidates: 2, houses, board: scannedDefaultBoard })
-nakedCandidates({ numOfCandidates: 3, houses, board: scannedDefaultBoard })
+implementStrategies({ board: enhancedBoard, houses })
 
 interface Props {
   showCandidates: boolean
@@ -68,12 +78,12 @@ export const BoardContext = createContext<Props>({
   showCandidates: false,
   toggleCandidatesView: () => {},
   updateCell: () => {},
-  board: { size: 0, width: 0, cells: [] }
+  board: { size: 0, width: 0, cells: [], allCandidates: [] }
 })
 
 export const BoardProvider = ({ children }: { children: ReactNode }) => {
   const [showCandidates, setShowCandidates] = useState<boolean>(false)
-  const [board, setBoard] = useState<EnhancedBoard>(scannedDefaultBoard)
+  const [board, setBoard] = useState<EnhancedBoard>(enhancedBoard)
 
   const toggleCandidatesView = () => {
     setShowCandidates(!showCandidates)
@@ -88,12 +98,14 @@ export const BoardProvider = ({ children }: { children: ReactNode }) => {
     newBoard.cells[index] = newCell
     resetCandidates(newBoard)
 
-    eliminateCandidates({ board: newBoard, houses }) // TODO: can we only do this for the affected row, column and box?
-    const scannedBoard = implementScanning({ houses, board: newBoard })
-    nakedCandidates({ numOfCandidates: 2, houses, board: scannedBoard })
-    nakedCandidates({ numOfCandidates: 3, houses, board: scannedBoard })
+    implementStrategies({ board: newBoard, houses })
 
-    setBoard(scannedBoard)
+    // eliminateCandidates({ board: newBoard, houses }) // TODO: can we only do this for the affected row, column and box?
+    // const scannedBoard = implementScanning({ houses, board: newBoard })
+    // nakedCandidates({ numOfCandidates: 2, houses, board: scannedBoard })
+    // nakedCandidates({ numOfCandidates: 3, houses, board: scannedBoard })
+
+    setBoard(newBoard)
   }
 
   return (

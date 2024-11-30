@@ -1,10 +1,10 @@
-type BoardCell = number | undefined
+type RawCell = number | undefined
 
-export type Board = BoardCell[]
+export type RawBoard = RawCell[]
 
 export interface EnhancedCell {
   index: number
-  val: BoardCell
+  val: RawCell
   candidates: number[]
   coord: { x: number; y: number }
   boxIndex: number
@@ -14,6 +14,7 @@ export type EnhancedBoard = {
   size: number
   width: number
   cells: EnhancedCell[]
+  allCandidates: number[]
 }
 
 // TODO: Rename House to something which makes better sense

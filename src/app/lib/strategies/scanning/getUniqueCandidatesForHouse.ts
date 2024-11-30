@@ -20,9 +20,5 @@ export const getUniqueCandidatesForHouse = ({ house: cellIndices, board, cell }:
     thisCandidatesSet = diff
   })
 
-  const asArray = Array.from(thisCandidatesSet)
-
-  // const arrayWithNull = asArray.filter((it) => it !== null)
-
-  return asArray.filter((it) => it !== null)
+  return Array.from(thisCandidatesSet)
 }

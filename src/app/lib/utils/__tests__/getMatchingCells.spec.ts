@@ -9,7 +9,6 @@ describe("getMatchingCells", () => {
       { index: 2, candidates: [5, 6] }
     ]
     const result = getMatchingCells({ cells, startIndex: 0 })
-    console.log("--result--", result)
     expect(result).toEqual([])
   })
 

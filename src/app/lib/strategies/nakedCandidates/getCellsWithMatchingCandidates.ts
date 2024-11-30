@@ -17,7 +17,7 @@ export const getCellsWithMatchingCandidates = ({ board, cellIndices, numOfCandid
     return !cell.val && cell.candidates.length === numOfCandidates
   })
 
-  const matchingCellIndices = getMatchingCells({ cells: cellsWithXCandidates, startIndex: 0 })
+  const matchingCellIndices = getMatchingCells({ cells: cellsWithXCandidates })
 
   const matchingCells = matchingCellIndices.map((it) => board.cells[it])
 

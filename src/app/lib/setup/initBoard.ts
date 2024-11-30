@@ -1,15 +1,14 @@
-import { Board, EnhancedBoard } from "../types"
+import { RawBoard, EnhancedBoard } from "../types"
 import { getBoxIndex } from "../utils"
 import { getAllCandidates } from "./utils"
 
-export const initBoard = (board: Board): EnhancedBoard => {
+export const initBoard = (board: RawBoard): EnhancedBoard => {
   const boardSize = board.length
   const boardWidth = Math.sqrt(boardSize) || 9
   const boxWidth = Math.sqrt(boardWidth) || 3
-
-  const enhancedBoard: EnhancedBoard = { size: boardSize, width: boardWidth, cells: [] }
-
   const allCandidates = getAllCandidates(boardWidth)
+
+  const enhancedBoard: EnhancedBoard = { size: boardSize, width: boardWidth, cells: [], allCandidates }
 
   //enhance board to handle candidates, and possibly other params
   for (let j = 0; j < boardSize; j++) {
