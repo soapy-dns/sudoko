@@ -11,6 +11,7 @@ export interface EnhancedCell {
 }
 
 export type EnhancedBoard = {
+  filledCellCount: number
   size: number
   width: number
   cells: EnhancedCell[]

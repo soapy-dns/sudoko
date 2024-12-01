@@ -1,11 +1,7 @@
-import { eliminateCandidates } from "@/app/lib/eliminateCandidates"
 import { resetCandidates } from "@/app/lib/resetCandidates"
 import { generateHouses } from "@/app/lib/setup/generateHouses"
 import { initBoard } from "@/app/lib/setup/initBoard"
-import { getAllCandidates } from "@/app/lib/setup/utils"
 import { implementStrategies } from "@/app/lib/strategies"
-import { nakedCandidates } from "@/app/lib/strategies/nakedCandidates/nakedCandidates"
-import { implementScanning } from "@/app/lib/strategies/scanning/implementScanning"
 import { EnhancedBoard } from "@/app/lib/types"
 import React, { ReactNode, useState, createContext } from "react"
 
@@ -65,20 +61,23 @@ console.log("length--->", defaultBoard.length)
 
 const houses = generateHouses(9)
 const enhancedBoard = initBoard(defaultBoard)
-implementStrategies({ board: enhancedBoard, houses })
+implementStrategies({ board: enhancedBoard, houses, solveRequested: false })
 
 interface Props {
   showCandidates: boolean
   toggleCandidatesView: () => void
   updateCell: (index: number, value?: number) => void
   board: EnhancedBoard
+  solve: () => void
 }
 
 export const BoardContext = createContext<Props>({
   showCandidates: false,
   toggleCandidatesView: () => {},
   updateCell: () => {},
-  board: { size: 0, width: 0, cells: [], allCandidates: [] }
+  solve: () => {},
+
+  board: { size: 0, width: 0, cells: [], allCandidates: [], filledCellCount: 0 }
 })
 
 export const BoardProvider = ({ children }: { children: ReactNode }) => {
@@ -90,26 +89,24 @@ export const BoardProvider = ({ children }: { children: ReactNode }) => {
   }
 
   const updateCell = (index: number, value?: number) => {
-    const { width } = board
     const newBoard = { ...board, cells: [...board.cells] }
     const oldCell = board.cells[index]
-
-    const newCell = { ...oldCell, val: value, candidates: getAllCandidates(width) }
+    const newCell = { ...oldCell, val: value, candidates: board.allCandidates }
     newBoard.cells[index] = newCell
     resetCandidates(newBoard)
-
-    implementStrategies({ board: newBoard, houses })
-
-    // eliminateCandidates({ board: newBoard, houses }) // TODO: can we only do this for the affected row, column and box?
-    // const scannedBoard = implementScanning({ houses, board: newBoard })
-    // nakedCandidates({ numOfCandidates: 2, houses, board: scannedBoard })
-    // nakedCandidates({ numOfCandidates: 3, houses, board: scannedBoard })
+    implementStrategies({ board: newBoard, houses, solveRequested: false })
 
     setBoard(newBoard)
   }
 
+  const solve = () => {
+    const newBoard = { ...board, cells: [...board.cells] }
+    implementStrategies({ board: newBoard, houses, solveRequested: true })
+    setBoard(newBoard)
+  }
+
   return (
-    <BoardContext.Provider value={{ toggleCandidatesView, showCandidates, updateCell, board }}>
+    <BoardContext.Provider value={{ toggleCandidatesView, showCandidates, updateCell, board, solve }}>
       {children}
     </BoardContext.Provider>
   )

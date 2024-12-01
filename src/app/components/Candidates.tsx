@@ -9,9 +9,10 @@ interface Props {
 // TODO: candidates type may change
 export const Candidates: React.FC<Props> = ({ boardWidth, candidates, cellIndex }) => {
   const range: number[] = getAllCandidates(boardWidth)
+  // const {allCandidates: range} = board.a
 
   return (
-    <div className="grid grid-cols-3 w-full " tabIndex={0}>
+    <div className="grid grid-cols-3 w-full ">
       {range.map((it, index) => {
         return candidates.includes(it) ? (
           <div

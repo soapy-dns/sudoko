@@ -1,4 +1,4 @@
-import { updateCells } from "../updateCells"
+import { hiddenPairsCandidateUpdates } from "../hiddenPairsCandidateUpdates"
 import { EnhancedBoard } from "../../../types"
 
 describe("implement hidden candidates strategy", () => {
@@ -20,7 +20,7 @@ describe("implement hidden candidates strategy", () => {
   }
 
   it("should return cells with hidden pairs", () => {
-    updateCells({
+    hiddenPairsCandidateUpdates({
       board: boardWithHiddenPair,
       cellIndices: [0, 1, 2, 3, 4, 5, 6, 7, 8],
       numOfCandidates: 2

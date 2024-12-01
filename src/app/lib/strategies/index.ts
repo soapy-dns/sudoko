@@ -1,22 +1,30 @@
-import { eliminateCandidates } from "../eliminateCandidates"
-import { EnhancedBoard } from "../types"
+import { implementSingleCandidates } from "./singleCandidates/implementSingleCandidate"
+import { EnhancedBoard, Houses } from "../types"
 import { implementHiddenCandidates } from "./hiddenCandidates/implementHiddenCandidates"
-import { updateCells } from "./hiddenCandidates/updateCells"
-import { nakedCandidates } from "./nakedCandidates/nakedCandidates"
+// import { nakedCandidates } from "./nakedCandidates/nakedCandidates"
 import { implementScanning } from "./scanning/implementScanning"
+import { implementNakedCandidates } from "./nakedCandidates/implementHiddenCandidates"
+import { updateSingleCandidates } from "../utils/updateSingleCandidates"
 
 interface Props {
   board: EnhancedBoard
   houses: Houses
+  solveRequested: boolean
 }
 
-export const implementStrategies = ({ board, houses }: Props) => {
-  eliminateCandidates({ board, houses })
-  // console.log("enhancedBoard", enhancedBoard)
-  //   const scannedDefaultBoard =
-  implementScanning({ houses, board })
+// TODO: naked triplet, naked quad, hidden triplet, hidden quad not working
+export const implementStrategies = ({ board, houses, solveRequested = false }: Props) => {
+  if (board.filledCellCount === board.size) return
 
-  nakedCandidates({ numOfCandidates: 2, houses, board })
+  const oldFilledCellsCount = board.filledCellCount
+  implementSingleCandidates({ board, houses })
+  implementScanning({ board, houses })
+  implementNakedCandidates({ board, houses, numOfCandidates: 2 })
   implementHiddenCandidates({ board, houses })
-  // nakedCandidates({ numOfCandidates: 3, houses, board: scannedDefaultBoard })
+
+  if (solveRequested) {
+    updateSingleCandidates({ board })
+    if (oldFilledCellsCount === board.filledCellCount) return
+    implementStrategies({ board, houses, solveRequested })
+  }
 }

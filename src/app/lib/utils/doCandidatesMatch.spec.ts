@@ -1,5 +1,5 @@
-import { doCandidatesMatch } from "../doCandidatesMatch"
-import { EnhancedCell } from "../../types"
+import { doCandidatesMatch } from "./doCandidatesMatch"
+import { EnhancedCell } from "../types"
 
 describe("doCandidatesMatch", () => {
   it("should return true if candidates match", () => {

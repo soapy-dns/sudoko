@@ -8,7 +8,13 @@ export const initBoard = (board: RawBoard): EnhancedBoard => {
   const boxWidth = Math.sqrt(boardWidth) || 3
   const allCandidates = getAllCandidates(boardWidth)
 
-  const enhancedBoard: EnhancedBoard = { size: boardSize, width: boardWidth, cells: [], allCandidates }
+  const enhancedBoard: EnhancedBoard = {
+    size: boardSize,
+    width: boardWidth,
+    cells: [],
+    allCandidates,
+    filledCellCount: boardSize
+  }
 
   //enhance board to handle candidates, and possibly other params
   for (let j = 0; j < boardSize; j++) {
@@ -27,6 +33,9 @@ export const initBoard = (board: RawBoard): EnhancedBoard => {
     }
     enhancedBoard.cells.push(enhancedCell)
   }
+
+  const filledCells = enhancedBoard.cells.filter((cell) => cell.val)
+  enhancedBoard.filledCellCount = filledCells.length
 
   return enhancedBoard
 }

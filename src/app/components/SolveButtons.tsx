@@ -4,20 +4,21 @@ import { ButtonGroup } from "./button/ButtonGroup"
 import { BoardContext } from "../ui/context/BoardProvider"
 
 export const SolveButtons: React.FC = () => {
-  const { toggleCandidatesView, showCandidates } = useContext(BoardContext)
-  const handleClick = () => {
+  const { toggleCandidatesView, showCandidates, solve } = useContext(BoardContext)
+  const handleToggle = () => {
     toggleCandidatesView()
   }
-  // const oneStep = () => {}
-  const allSteps = () => {}
+  const handleSolve = () => {
+    solve()
+  }
 
   return (
     <ButtonGroup>
-      <Button buttonType={ButtonType.secondary} onClick={handleClick}>
+      <Button buttonType={ButtonType.secondary} onClick={handleToggle}>
         {showCandidates ? "Hide" : "Show"} Candidates
       </Button>
-      <Button buttonType={ButtonType.secondary} onClick={allSteps}>
-        All
+      <Button buttonType={ButtonType.secondary} onClick={handleSolve}>
+        Solve
       </Button>
     </ButtonGroup>
   )

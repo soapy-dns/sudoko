@@ -40,7 +40,7 @@ export const Cell: React.FC<Props> = ({ boardWidth, cell }) => {
     >
       <input
         value={cell.val || ""}
-        className="w-full h-full text-center bg-gray-50 z-10 opacity-60   focus:bg-red-100"
+        className="w-full h-full text-center bg-gray-50 z-10 opacity-60 focus:bg-cyan-200 hover:bg-cyan-100"
         onChange={handleOnChange}
         pattern="\d*"
         maxLength={maxlength}

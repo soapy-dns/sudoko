@@ -19,11 +19,11 @@ const boardWithHiddenPair: EnhancedBoard = {
 }
 
 describe("getCellsByCandidate", () => {
-  it("should return correct cells for each candidate", () => {
+  it.only("should return correct cells for each candidate", () => {
     const board: EnhancedBoard = boardWithHiddenPair
     const cellIndices = [0, 2, 3, 4, 5, 6, 8]
 
-    const result = getCellsByCandidate({ board, cellIndices })
+    const result = getCellsByCandidate({ board, cellIndices, numOfCandidates: 2 })
 
     expect(result).toEqual([
       { candidate: 1, matchingCellsIndices: [5, 6] },

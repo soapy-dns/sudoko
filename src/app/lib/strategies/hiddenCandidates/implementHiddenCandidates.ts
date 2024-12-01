@@ -1,5 +1,5 @@
 import { EnhancedBoard, Houses } from "../../types"
-import { updateCells } from "./updateCells"
+import { hiddenPairsCandidateUpdates } from "./hiddenPairsCandidateUpdates"
 
 interface Props {
   board: EnhancedBoard
@@ -9,7 +9,7 @@ interface Props {
 export const implementHiddenCandidates = ({ board, houses }: Props) => {
   Object.values(houses).forEach((house) => {
     house.forEach((cellIndices) => {
-      updateCells({ numOfCandidates: 2, board, cellIndices })
+      hiddenPairsCandidateUpdates({ numOfCandidates: 2, board, cellIndices })
     })
   })
 }
